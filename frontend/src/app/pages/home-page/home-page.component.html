@@ -1,0 +1,59 @@
+
+  <div class=" example-container">
+      <h1>Search User</h1>
+      <mat-divider></mat-divider>
+      <div class="form-container">
+        <form [formGroup]="userForm" (ngSubmit)="submit()">
+
+        
+          <mat-form-field appearance="fill">
+            <mat-label>Select Countries</mat-label>
+            <mat-select formControlName="country" multiple>
+              <mat-option *ngFor="let count of countryArray;" value="{{count.name}}">{{count.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+            <div mat-dialog-actions class="align-left display-inline  ">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">Search Now</button>
+            </div>
+        </form>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+    
+        <!-- name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Full Name. </th>
+          <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
+        </ng-container>
+    
+        <!-- email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+    
+        <!-- country Column -->
+        <ng-container matColumnDef="country">
+          <th mat-header-cell *matHeaderCellDef> Country </th>
+          <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+        </ng-container>
+    
+        <!-- gender Column -->
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef> Gender </th>
+          <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+      <mat-paginator #paginator [length]="totalRows" 
+      (page)="pageChanged($event)" [pageSize]="pageSize"
+                     showFirstLastButtons 
+                     aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+</div>
